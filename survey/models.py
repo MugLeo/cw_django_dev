@@ -19,8 +19,9 @@ class Question(models.Model):
         ranking = ranking + (5 * self.answers.filter(like=True).count())
         ranking = ranking - (3 * self.answers.filter(dislike=True).count())
         now = datetime.now()
-        if self.created == now:
-            ranking = ranking +10
+        if self.created == now.date():
+            if ranking:
+                ranking = ranking +10
         return ranking
 
     def get_absolute_url(self):
